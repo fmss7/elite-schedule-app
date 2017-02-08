@@ -11,8 +11,8 @@ import { TournamentsPage, TeamHomePage } from '../pages';
 export class MyTeamsPage {
 
     
-    favourites = [];
-    /*
+    favourites = [
+    
         {
             team: { id: 6182, name: 'HC Elite 7th', coach: 'Michelotti' },
             tournamentId: '89e13aa2-ba6d-4f55-9cc2-61eba6172c63',
@@ -24,7 +24,7 @@ export class MyTeamsPage {
             tournamentName: 'Germany \'06'
         }
     ]
-    */
+    
 
     constructor(private navCtrl: NavController, public navParams: NavParams, private eliteApi: EliteApi, private loadingcontroller: LoadingController, private userSettings: UserSettings) { }
 

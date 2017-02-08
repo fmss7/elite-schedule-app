@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, LoadingController, Events } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { HttpModule } from '@angular/http';
 
-import { MyTeamsPage, TournamentsPage} from '../pages/pages';
+import { MyTeamsPage, TournamentsPage, TeamHomePage } from '../pages/pages';
 import { EliteApi, UserSettings } from '../shared/shared';
 
 
@@ -18,10 +18,15 @@ import { EliteApi, UserSettings } from '../shared/shared';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
+    favouriteTeams: any[];
     rootPage: any = MyTeamsPage;
 
 
-    constructor(public platform: Platform) {
+    constructor(public platform: Platform,
+        private userSettings: UserSettings,
+        private loadingController: LoadingController,
+        private eliteApi: EliteApi,
+        private events: Events) {
         this.initializeApp();
 
         // used for an example of ngFor and navigation
@@ -33,14 +38,30 @@ export class MyApp {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
+            this.refreshFavourites();
+            this.events.subscribe('favourites:changed', () => this.refreshFavourites());
             Splashscreen.hide();
         });
     }
 
-    goHome(): void{
+    refreshFavourites() {
+        this.favouriteTeams = this.userSettings.getAllFavourites();
+    }
+
+    goHome(): void {
         this.nav.push(MyTeamsPage);
     }
-    goToTournaments(): void{
+
+    goToTeam(favourite) {
+        let loader = this.loadingController.create({
+            content: 'Getting data...',
+            dismissOnPageChange: true
+        });
+        loader.present();
+        this.eliteApi.getTournamentData(favourite.tournamentId).subscribe(l => this.nav.push(TeamHomePage));
+    }
+
+    goToTournaments(): void {
         this.nav.push(TournamentsPage);
     }
 
