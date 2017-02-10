@@ -4,6 +4,8 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 
 import { EliteApi } from '../../shared/shared';
 
+declare var window: any;
+
 @Component({
     selector: 'page-map',
     templateUrl: 'map.page.html',
@@ -23,8 +25,12 @@ export class MapPage {
             lat: location.latitude,
             lng: location.longitude,
             zoom: 12,
-            makerLabel: games.location
+            markerLabel: games.location
         };
+    }
+
+    getDirections() {
+        window.location = `geo:${this.map.lat},${this.map.lng};u=35`;
     }
 
 }
