@@ -1,8 +1,9 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
-import { MyTeamsPage, TournamentsPage, TeamsPage, TeamDetailPage, GamePage, StandingsPage, TeamHomePage } from '../pages/pages';
+import { MyTeamsPage, TournamentsPage, TeamsPage, TeamDetailPage, GamePage, StandingsPage, TeamHomePage, MapPage } from '../pages/pages';
 import { EliteApi } from '../shared/shared';
 
 @NgModule({
@@ -15,9 +16,11 @@ import { EliteApi } from '../shared/shared';
     GamePage,
     StandingsPage,
     TeamHomePage,
+    MapPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AgmCoreModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,6 +32,7 @@ import { EliteApi } from '../shared/shared';
     GamePage,
     StandingsPage,
     TeamHomePage,
+    MapPage
   ],
   providers: [
       {provide: ErrorHandler, useClass: IonicErrorHandler},

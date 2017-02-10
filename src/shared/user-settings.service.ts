@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { LocalStorage } from 'localStorage';
+ import localforage from 'localforage';
 
 import * as _ from 'lodash';
 

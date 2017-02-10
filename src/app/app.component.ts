@@ -2,8 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, LoadingController, Events } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { HttpModule } from '@angular/http';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
-import { MyTeamsPage, TournamentsPage, TeamHomePage } from '../pages/pages';
+import { MyTeamsPage, TournamentsPage, TeamHomePage, MapPage } from '../pages/pages';
 import { EliteApi, UserSettings } from '../shared/shared';
 
 
@@ -12,7 +13,8 @@ import { EliteApi, UserSettings } from '../shared/shared';
     providers: [
         EliteApi,
         UserSettings,
-        HttpModule
+        HttpModule,
+        AgmCoreModule
     ]
 })
 export class MyApp {

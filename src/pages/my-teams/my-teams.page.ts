@@ -41,9 +41,10 @@ export class MyTeamsPage {
             .subscribe(t => this.navCtrl.push(TeamHomePage, favourite.team));
     }
 
+/*
     ionViewDidEnter(){
         this.favourites = this.userSettings.getAllFavourites(); 
     }
-
+*/
 
 }
