@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController} from 'ionic-angular';
+import { Vibration, LocalNotifications } from 'ionic-native';
 
 import { EliteApi, UserSettings } from '../../shared/shared';
 import { TournamentsPage, TeamHomePage } from '../pages';
@@ -10,6 +11,7 @@ import { TournamentsPage, TeamHomePage } from '../pages';
 })
 export class MyTeamsPage {
 
+    results: string;
     
     favourites = [
     
@@ -26,7 +28,13 @@ export class MyTeamsPage {
     ]
     
 
-    constructor(private navCtrl: NavController, public navParams: NavParams, private eliteApi: EliteApi, private loadingcontroller: LoadingController, private userSettings: UserSettings) { }
+    constructor(private navCtrl: NavController, public navParams: NavParams, private eliteApi: EliteApi, private loadingcontroller: LoadingController, private userSettings: UserSettings) {
+        LocalNotifications.on('click', notification => {
+            var data = JSON.parse(notification.data);
+            this.results = data.name;
+            alert(`Notificación recibida! (${data.name})`);
+        })
+    }
 
     goToTournaments() {
         this.navCtrl.push(TournamentsPage);
@@ -46,5 +54,25 @@ export class MyTeamsPage {
         this.favourites = this.userSettings.getAllFavourites(); 
     }
 */
+
+    vibrate(){
+        Vibration.vibrate(1000);
+    }
+
+    vibratePattern(){
+        Vibration.vibrate([250, 100, 300, 75, 350]);
+    }
+
+    notify(){
+        LocalNotifications.schedule({
+            id: 1,
+            title: 'Notificación Push',
+            text: 'Paserme el chulo! :)',
+            data: {
+                id: 21,
+                name: 'Fran se ha hecho el chulo'
+            }
+        });
+    }
 
 }
