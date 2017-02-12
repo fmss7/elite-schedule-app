@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController} from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Vibration, LocalNotifications } from 'ionic-native';
 
 import { EliteApi, UserSettings } from '../../shared/shared';
@@ -12,9 +12,9 @@ import { TournamentsPage, TeamHomePage } from '../pages';
 export class MyTeamsPage {
 
     results: string;
-    
+
     favourites = [
-    
+
         {
             team: { id: 6182, name: 'HC Elite 7th', coach: 'Michelotti' },
             tournamentId: '89e13aa2-ba6d-4f55-9cc2-61eba6172c63',
@@ -26,14 +26,14 @@ export class MyTeamsPage {
             tournamentName: 'Germany \'06'
         }
     ]
-    
+
 
     constructor(private navCtrl: NavController, public navParams: NavParams, private eliteApi: EliteApi, private loadingcontroller: LoadingController, private userSettings: UserSettings) {
         LocalNotifications.on('click', notification => {
             var data = JSON.parse(notification.data);
             this.results = data.name;
             alert(`Notificación recibida! (${data.name})`);
-        })
+        });
     }
 
     goToTournaments() {
@@ -49,21 +49,21 @@ export class MyTeamsPage {
             .subscribe(t => this.navCtrl.push(TeamHomePage, favourite.team));
     }
 
-/*
-    ionViewDidEnter(){
-        this.favourites = this.userSettings.getAllFavourites(); 
-    }
-*/
+    /*
+        ionViewDidEnter(){
+            this.favourites = this.userSettings.getAllFavourites(); 
+        }
+    */
 
-    vibrate(){
+    vibrate() {
         Vibration.vibrate(1000);
     }
 
-    vibratePattern(){
+    vibratePattern() {
         Vibration.vibrate([250, 100, 300, 75, 350]);
     }
 
-    notify(){
+    scheduleNotification() {
         LocalNotifications.schedule({
             id: 1,
             title: 'Notificación Push',
@@ -73,6 +73,7 @@ export class MyTeamsPage {
                 name: 'Fran se ha hecho el chulo'
             }
         });
+    
     }
 
 }
