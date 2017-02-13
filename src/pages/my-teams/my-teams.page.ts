@@ -32,7 +32,7 @@ export class MyTeamsPage {
         LocalNotifications.on('click', notification => {
             var data = JSON.parse(notification.data);
             this.results = data.name;
-            alert(`Notificación recibida! (${data.name})`);
+            alert(`${data.name}`);
         });
     }
 
